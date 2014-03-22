@@ -1,6 +1,10 @@
 {
-  "name": "brewpi",
+  "name": "Brewberry",
   "version": "0.0.0",
+  "author": "Brewfactory",
+  "contributors": [
+    "Péter Márton @slashdotpeter"
+  ],
   "dependencies": {
     "pi-blaster.js": "0.0.2",
     "socket.io": "~0.9.16",
