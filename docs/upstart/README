@@ -1,0 +1,8 @@
+Start the node server after booting.
+
+ADD:
+chmod 755 /etc/init.d/nodeup
+update-rc.d nodeup defaults
+
+REMOVE:
+update-rc.d -f nodeup remove

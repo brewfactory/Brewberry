@@ -1,0 +1,19 @@
+#!/bin/sh
+#/etc/init.d/nodeup
+
+export PATH=$PATH:/usr/local/bin
+
+case "$1" in
+  start)
+  sudo -u pi NODE_ENV=production forever start --sourceDir=/home/pi/Desktop/pwm/ -p /home/pi/Desktop/pwm_logs app.js
+  ;;
+stop)
+  sudo -u pi forever stop /home/pi/Desktop/pwm/app.js
+  ;;
+*)
+  echo "Usage: /etc/init.d/nodeup {start|stop}"
+  exit 1
+  ;;
+esac
+
+exit 0

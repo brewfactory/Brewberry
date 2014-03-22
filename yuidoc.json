@@ -1,0 +1,9 @@
+{
+  "name": "Brewer",
+  "description": "While Brewing with Node is fun :)",
+  "version": "0.1",
+  "options": {
+    "outdir": "docs/server"
+  },
+  "exclude": ["app"]
+}

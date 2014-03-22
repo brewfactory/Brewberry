@@ -1,0 +1,39 @@
+{
+  "mongo": {
+    "connect": "localhost"
+  },
+
+  "log": {
+    "status": {
+      "frequency": 10000
+    }
+  },
+
+  "relay": {
+    "1": 4,
+    "2": 6
+  },
+
+  "brew": {
+    "pmax": 4000,
+    "temp": {
+      "tolerance": 0.5
+    }
+  },
+
+  "controller": {
+    "output": {
+      "min": 0,
+      "max": 100
+    },
+    "interval": 500,
+    "temp": 0,
+    "kp": 16.7,
+    "ki": 0.00000000000000395,
+    "kd": -9.26
+  },
+
+  "temp": {
+    "hardware": "it's mocked in dev env"
+  }
+}
