@@ -38,7 +38,7 @@ module.exports.setBrew = function (req, res) {
  * @param {Object} req Express Object
  * @param {Object} res Express Object
  */
-module.exports.stopBrew = function (req, res) {
+module.exports.cancelBrew = function (req, res) {
   Brewer.cancelBrew();
 
   res.json({
