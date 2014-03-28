@@ -76,7 +76,7 @@ if ('production' === app.get('env')) {
 
 // brew
 app.post('/brew', routeBrew.setBrew);
-app.get('/brew/stop', routeBrew.stopBrew);
+app.get('/brew/stop', routeBrew.cancelBrew);
 app.get('/brew/pause', routeBrew.pauseBrew);
 
 // logs
