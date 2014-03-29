@@ -2,7 +2,7 @@
  * BrewHeaterPWM
  * Control the PWM, depends on the temperature values
  *
- * @module Temp
+ * @module BrewHeaterPWM
  **/
 
 'use strict';
