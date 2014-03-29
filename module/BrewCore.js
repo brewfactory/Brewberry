@@ -1,7 +1,7 @@
 /**
  * Handle events
  *
- * @module Event
+ * @module BrewCore
  **/
 
 
