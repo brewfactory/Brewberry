@@ -11,8 +11,8 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="components/bootstrap-timepicker/css/bootstrap-timepicker.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/bootstrap-timepicker/css/bootstrap-timepicker.css">
     <link rel="stylesheet" href="styles/main.css">
 
     <!-- endbuild -->
@@ -24,8 +24,8 @@
     <![endif]-->
 
     <!--[if lt IE 9]>
-      <script src="components/es5-shim/es5-shim.js"></script>
-      <script src="components/json3/lib/json3.min.js"></script>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
     <!-- Navigation -->
@@ -43,18 +43,18 @@
     <!-- Add your site or application content here -->
     <div class="container" ng-view></div>
 
-    <script src="/socket.io/socket.io.js"></script>
-
     <!-- build:js scripts/angular.js -->
-    <script src="components/angular/angular.js"></script>
-    <script src="components/angular-resource/angular-resource.js"></script>
-    <script src="components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
     <!-- endbuild -->
 
     <!-- build:js scripts/plugins.js -->
-    <script src="components/jquery/jquery.js"></script>
-    <script src="components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/socket.io-client/dist/socket.io.js"></script>
+    <script src="bower_components/angular-socket-io/socket.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 
     <script src="scripts/vendor/Chart.js/Chart.js"></script>
     <script src="scripts/vendor/angles/angles.js"></script>
@@ -70,10 +70,10 @@
     <script src="scripts/directives/Notification.js"></script>
     <script src="scripts/directives/BSTimePicker.js"></script>
 
-    <script src="scripts/services/socket.js"></script>
     <script src="scripts/services/BrewService.js"></script>
     <script src="scripts/services/LogService.js"></script>
     <script src="scripts/services/ActualBrewService.js"></script>
+    <script src="scripts/services/Socket.js"></script>
     <!-- endbuild -->
 
   </body>

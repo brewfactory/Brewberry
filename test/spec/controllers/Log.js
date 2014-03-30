@@ -1,11 +1,12 @@
 'use strict';
 
-describe('Controller: LogCtrl', function () {
+describe('Controller: MainCtrl', function () {
 
   // load the controller's module
   beforeEach(module('brewpiApp'));
 
-  var LogCtrl,
+  var
+    LogCtrl,
     scope;
 
   // Initialize the controller and a mock scope
@@ -16,7 +17,9 @@ describe('Controller: LogCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
+
+  // TODO: implement
+  it('phase duration should be initialized', function () {
+    expect(scope.options.pwm.scaleSteps).to.be.equal(10);
   });
 });
