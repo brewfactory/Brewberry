@@ -126,7 +126,7 @@ controlPWM = function () {
     pwmOutput = Number(pwmOutput) / PMAX;
   }
 
-  // Notify Event module
+  // Notify EventDispatcher module
   if (typeof onPWMChanged === 'function') {
     onPWMChanged(pwmOutput);
   }
