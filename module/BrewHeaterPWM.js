@@ -2,7 +2,7 @@
  * BrewHeaterPWM
  * Control the PWM, depends on the temperature values
  *
- * @module Temp
+ * @module BrewHeaterPWM
  **/
 
 'use strict';
@@ -126,7 +126,7 @@ controlPWM = function () {
     pwmOutput = Number(pwmOutput) / PMAX;
   }
 
-  // Notify Event module
+  // Notify EventDispatcher module
   if (typeof onPWMChanged === 'function') {
     onPWMChanged(pwmOutput);
   }

@@ -7,7 +7,9 @@
 'use strict';
 
 var
-  Logger = require('./../module/Logger');
+  Logger = require('./../module/Logger'),
+  LogModel = require('./../schema/Log');
+
 
 /**
  * Find brew logs
@@ -18,7 +20,7 @@ var
  * @param {Function} next Express Function
  */
 module.exports.findBrewLogs = function (req, res, next) {
-  Logger.findBrews(function (err, result) {
+  LogModel.findBrews(function (err, result) {
 
     // err
     if (err) {
@@ -46,7 +48,7 @@ module.exports.findOneBrewLog = function (req, res, next) {
     return next(new Error('Undefined brew'));
   }
 
-  Logger.findOneBrew(brew, function (err, result) {
+  LogModel.findOneBrew(brew, function (err, result) {
 
     // err
     if (err) {

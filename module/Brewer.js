@@ -56,7 +56,7 @@ exports.init = function () {
 
 /**
  * Set Brew changed notifier
- * set from Event
+ * set from EventDispatcher
  *
  * @method setBrewChangedNotifier
  * @param {Function} notifierFn
@@ -71,7 +71,7 @@ exports.setBrewChangedNotifier = function (notifierFn) {
 
 /**
  * Set Brew ended notifier
- * set from Event
+ * set from EventDispatcher
  *
  * @method setBrewEndedNotifier
  * @param {Function} notifierFn
@@ -86,7 +86,7 @@ exports.setBrewEndedNotifier = function (notifierFn) {
 
 /**
  * Set Phase changed notifier
- * set from Event
+ * set from EventDispatcher
  *
  * @method setPhaseChangedNotifier
  * @param {Function} notifierFn
@@ -101,7 +101,7 @@ exports.setPhaseChangedNotifier = function (notifierFn) {
 
 /**
  * Set Brew pause notifier
- * set from Event
+ * set from EventDispatcher
  *
  * @method setBrewPauseNotifier
  * @param {Function} notifierFn
@@ -274,7 +274,7 @@ exports.emitBrewChanged = brewChanged = function () {
     })
   };
 
-  // Notify Event module
+  // Notify EventDispatcher module
   onBrewChanged(pureActualBrew);
 
 };
@@ -453,7 +453,7 @@ startNextPhase = function () {
 
 
 /**
- * Called from external by the Event module
+ * Called from external by the EventDispatcher module
  * Fires when temperature updated
  *
  * @method onTempUpdate

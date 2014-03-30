@@ -91,7 +91,7 @@ exports.setPointNotifier = function (callback) {
 setActual = function (temperature) {
   actualTemperature = Number(temperature);
 
-  // Notify Event module
+  // Notify EventDispatcher module
   if (typeof onActualChangedNotifier === 'function' && !isNaN(actualTemperature)) {
     onActualChangedNotifier(actualTemperature);
   }
@@ -126,7 +126,7 @@ exports.setPoint = function (temperature) {
     temp: temperature
   });
 
-  // Notify Event module
+  // Notify EventDispatcher module
   if (typeof onPointChangedNotifier === 'function' && !isNaN(pointTemperature)) {
     onPointChangedNotifier(pointTemperature);
   }
