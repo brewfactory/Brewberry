@@ -47,7 +47,7 @@ exports.init = function (server, options) {
 
 
 /**
- * On status changed from Event
+ * On status changed from EventDispatcher
  *
  * @method onStatusChange
  */
