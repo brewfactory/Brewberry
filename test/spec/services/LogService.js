@@ -11,8 +11,6 @@ describe('Service: LogService', function () {
     LogService = _LogService_;
   }));
 
-  it('should do something', function () {
-    expect(!!LogService).toBe(true);
-  });
 
+  // TODO: implement
 });

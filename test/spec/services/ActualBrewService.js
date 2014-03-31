@@ -11,8 +11,6 @@ describe('Service: ActualBrewService', function () {
     ActualBrewService = _ActualBrewService_;
   }));
 
-  it('should do something', function () {
-    expect(!!ActualBrewService).toBe(true);
-  });
 
+  // TODO: implement
 });

@@ -11,8 +11,6 @@ describe('Service: BrewService', function () {
     BrewService = _BrewService_;
   }));
 
-  it('should do something', function () {
-    expect(!!BrewService).toBe(true);
-  });
 
+  // TODO: implement
 });

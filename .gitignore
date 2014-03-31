@@ -3,7 +3,7 @@ dist
 .tmp
 .sass-cache
 .nodemonignore
-app/components
+app/bower_components
 docs/server
 config/configOwn.json
 
@@ -20,4 +20,3 @@ pids
 logs
 results
 
-npm-debug.log

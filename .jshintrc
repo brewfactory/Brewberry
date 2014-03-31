@@ -21,6 +21,7 @@
   "globals": {
     "angular": true,
 
+    "expect": false,
     "describe": false,
     "it": false,
     "before": false,

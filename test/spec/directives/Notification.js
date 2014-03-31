@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: Navigation', function () {
+describe('Directive: Notification', function () {
   beforeEach(module('brewpiApp'));
 
   // TODO: implement
