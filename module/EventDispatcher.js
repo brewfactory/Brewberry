@@ -27,10 +27,10 @@ var
   heaterPIDController,
 
 // private notifiers
-  onManualSetPWM,
-  onActualPWMChanged,
-  onActualTemperatureChanged,
-  onPointTemperatureChanged,
+  onManualSetPWM = require('./EventHandlers/ManualSetPWM'),
+  onActualPWMChanged = require('./EventHandlers/ActualPWMChanged'),
+  onActualTemperatureChanged = require('./EventHandlers/ActualTemperatureChanged'),
+  onPointTemperatureChanged = require('./EventHandlers/PointTemperatureChanged'),
   onBrewChanged,
   onBrewPause,
   onBrewEnded,
@@ -45,17 +45,25 @@ var
 exports.init = function () {
 
   // SocketIO
-  SocketIO.setManualPWMNotifier(onManualSetPWM);
+  SocketIO.setManualPWMNotifier(function (pwm) {
+    onManualSetPWM(PWMEmitter, Brewer.getProgress(), pwm);
+  });
 
   // Temperature
-  BrewTemperature.setActualNotifier(onActualTemperatureChanged);
-  BrewTemperature.setPointNotifier(onPointTemperatureChanged);
+  BrewTemperature.setActualNotifier(function (pwm) {
+    onActualTemperatureChanged(TemperatureEmitter, pwm);
+  });
+  BrewTemperature.setPointNotifier(function (temp){
+    onPointTemperatureChanged(TemperatureEmitter, temp);
+  });
 
   // PIDController
   heaterPIDController = BrewHeaterPWM.getPIDController();
 
   // BrewHeaterPWM
-  BrewHeaterPWM.setManualPWMNotifier(onActualPWMChanged);
+  BrewHeaterPWM.setManualPWMNotifier(function (pwm) {
+    onActualPWMChanged(PWMEmitter, pwm);
+  });
 
   // Brewer
   Brewer.setBrewChangedNotifier(onBrewChanged);
@@ -65,91 +73,6 @@ exports.init = function () {
 
   Logger.info(LOG + ' is successfully initialized', LOG);
 };
-
-
-/**
- * On set PWM manual
- *
- * @method onManualSetPWM
- * @param {Number} pwm PWM value
- */
-onManualSetPWM = function (pwm) {
-
-  // err: temp
-  if (isNaN(pwm)) {
-    return Logger.error('PWM is undefined or isNaN', LOG, pwm);
-  }
-
-  // err: Brew in progress
-  if (Brewer.getProgress() === true) {
-    return Logger.error('Can not set PWM manually during a Brew.', LOG, {
-      brewProgress: Brewer.getProgress(),
-      pwm: pwm
-    });
-  }
-
-  Logger.event('PWM set manually', LOG, {pwm: pwm});
-
-  PWMEmitter.emit('pwm:set:manual', { pwm: pwm });
-};
-
-
-/**
- * On actual PWM is changed
- *
- * @method onActualPWMChanged
- * @param {Number} pwm PWM value
- */
-onActualPWMChanged = function (pwm) {
-
-  // err: temp
-  if (isNaN(pwm)) {
-    return Logger.error('PWM is undefined or isNaN', LOG, pwm);
-  }
-
-  Logger.data('Actual PWM', LOG, {pwm: pwm});
-
-  PWMEmitter.emit('pwm:set', { pwm: pwm });
-};
-
-
-/**
- * On actual temperature is changed
- *
- * @method onActualTemperatureChanged
- * @param {Number} temp Temperature
- */
-onActualTemperatureChanged = function (temp) {
-
-  // err: temp
-  if (isNaN(temp)) {
-    return Logger.error('Actual Temp is undefined or isNaN', LOG, temp);
-  }
-
-  Logger.data('Actual temperature', LOG, {temp: temp});
-
-  TemperatureEmitter.emit('actualTemperature:set', { temp: temp });
-};
-
-
-/**
- * On point temperature is changed
- *
- * @method onPointTemperatureChanged
- * @param {Number} temp Temperature
- */
-onPointTemperatureChanged = function (temp) {
-
-  // err: temp
-  if (isNaN(temp)) {
-    return Logger.error('Point Temp is undefined or isNaN', LOG, temp);
-  }
-
-  Logger.event('Point temperature', LOG, {temp: temp});
-
-  TemperatureEmitter.emit('pointTemperature:set', { temp: temp });
-};
-
 
 /**
  * On Brew ended
