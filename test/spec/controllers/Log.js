@@ -19,7 +19,7 @@ describe('Controller: MainCtrl', function () {
 
 
   // TODO: implement
-  it('phase duration should be initialized', function () {
+  it('options should be set', function () {
     expect(scope.options.pwm.scaleSteps).to.be.equal(10);
   });
 });
