@@ -33,7 +33,7 @@ var
   onPointTemperatureChanged = require('./EventHandlers/PointTemperatureChanged'),
   onBrewChanged,
   onBrewPause,
-  onBrewEnded,
+  onBrewEnded = require('./EventHandlers/BrewEnded'),
   onPhaseChanged;
 
 
@@ -68,23 +68,13 @@ exports.init = function () {
   // Brewer
   Brewer.setBrewChangedNotifier(onBrewChanged);
   Brewer.setBrewPauseNotifier(onBrewPause);
-  Brewer.setBrewEndedNotifier(onBrewEnded);
+  Brewer.setBrewEndedNotifier(function () {
+    onBrewEnded(BrewEmitter);
+  });
   Brewer.setPhaseChangedNotifier(onPhaseChanged);
 
   Logger.info(LOG + ' is successfully initialized', LOG);
 };
-
-/**
- * On Brew ended
- *
- * @method onBrewEnded
- */
-onBrewEnded = function () {
-  Logger.event('Brew ended', LOG);
-
-  BrewEmitter.emit('brew:ended');
-};
-
 
 /**
  * On Phase changed
