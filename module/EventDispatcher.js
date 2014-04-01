@@ -37,7 +37,9 @@ var
   onPhaseChanged = require('./Notifiers/Phase/PhaseChange'),
 
 // event handlers
-  onPointTemperatureSet = require('./EventHandlers/Temperature/PointTemperatureSet');
+  onPointTemperatureSet = require('./EventHandlers/Temperature/PointTemperatureSet'),
+  onActualTemperatureSet = require('./EventHandlers/Temperature/ActualTemperatureSet');
+
 
 
 /**
@@ -90,21 +92,7 @@ TemperatureEmitter.on('pointTemperature:set', function (data) {
 });
 
 TemperatureEmitter.on('actualTemperature:set', function (data) {
-  var temp = data.temp;
-
-  // Brewer
-  Brewer.onTempUpdate(temp);
-
-  // Log status (to MongoDB)
-  if(Brewer.getActualBrew().name) {
-    Logger.status(temp, BrewHeaterPWM.getActualPWM(), Brewer.getActualBrew().name);
-  }
-
-  // emit status to the client
-  SocketIO.onStatusChange({
-    temp: temp,
-    pwm: BrewHeaterPWM.getActualPWM()
-  });
+  onActualTemperatureSet(Brewer, BrewHeaterPWM, SocketIO, data);
 });
 
 

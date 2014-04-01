@@ -1,7 +1,7 @@
 /**
  * PID Controller: set new point
  *
- * @module: ActualTemperatureSet
+ * @module: PointTemperatureSet
  *
  */
 module.exports = function (heaterPIDController, data) {
