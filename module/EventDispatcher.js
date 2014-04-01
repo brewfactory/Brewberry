@@ -27,14 +27,14 @@ var
   heaterPIDController,
 
 // private notifiers
-  onManualSetPWM = require('./EventHandlers/PWM/ManualSetPWM'),
-  onActualPWMChanged = require('./EventHandlers/PWM/ActualPWMChanged'),
-  onActualTemperatureChanged = require('./EventHandlers/Temperature/ActualTemperatureChanged'),
-  onPointTemperatureChanged = require('./EventHandlers/Temperature/PointTemperatureChanged'),
-  onBrewChanged = require('./EventHandlers/Brew/BrewChanged'),
-  onBrewPaused = require('./EventHandlers/Brew/BrewPaused'),
-  onBrewEnded = require('./EventHandlers/Brew/BrewEnded'),
-  onPhaseChanged = require('./EventHandlers/PhaseChange');
+  onManualSetPWM = require('./Notifiers/PWM/ManualSetPWM'),
+  onActualPWMChanged = require('./Notifiers/PWM/ActualPWMChanged'),
+  onActualTemperatureChanged = require('./Notifiers/Temperature/ActualTemperatureChanged'),
+  onPointTemperatureChanged = require('./Notifiers/Temperature/PointTemperatureChanged'),
+  onBrewChanged = require('./Notifiers/Brew/BrewChanged'),
+  onBrewPaused = require('./Notifiers/Brew/BrewPaused'),
+  onBrewEnded = require('./Notifiers/Brew/BrewEnded'),
+  onPhaseChanged = require('./Notifiers/Phase/PhaseChange');
 
 
 /**
