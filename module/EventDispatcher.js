@@ -34,7 +34,10 @@ var
   onBrewChanged = require('./Notifiers/Brew/BrewChanged'),
   onBrewPaused = require('./Notifiers/Brew/BrewPaused'),
   onBrewEnded = require('./Notifiers/Brew/BrewEnded'),
-  onPhaseChanged = require('./Notifiers/Phase/PhaseChange');
+  onPhaseChanged = require('./Notifiers/Phase/PhaseChange'),
+
+// event handlers
+  onPointTemperatureSet = require('./EventHandlers/Temperature/PointTemperatureSet');
 
 
 /**
@@ -82,21 +85,10 @@ exports.init = function () {
   Logger.info(LOG + ' is successfully initialized', LOG);
 };
 
-/**
- * PID Controller: set new point
- *
- */
 TemperatureEmitter.on('pointTemperature:set', function (data) {
-  var temp = data.temp;
-
-  heaterPIDController.setPoint(temp);
+  onPointTemperatureSet(heaterPIDController, data);
 });
 
-
-/**
- * Status changed
- *
- */
 TemperatureEmitter.on('actualTemperature:set', function (data) {
   var temp = data.temp;
 
