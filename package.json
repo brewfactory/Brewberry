@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "author": "Brewfactory",
   "contributors": [
-    "Péter Márton @slashdotpeter"
+    "Péter Márton @slashdotpeter",
+    "Gergely Nemeth @nthgergo"
   ],
   "dependencies": {
     "pi-blaster.js": "0.0.2",
@@ -49,12 +50,14 @@
     "karma-mocha": "^0.1.3",
     "karma-chrome-launcher": "^0.1.2",
     "karma-chai": "^0.1.0"
+    "istanbul": "^0.2.7"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
     "test": "mocha test/server",
-    "start": "node app.js"
+    "start": "node app.js",
+    "coverage": "istanbul cover _mocha test/server/**/*.js -- -u exports -R spec && open coverage/lcov-report/index.html"
   }
 }
