@@ -38,7 +38,8 @@ var
 
 // event handlers
   onPointTemperatureSet = require('./EventHandlers/Temperature/PointTemperatureSet'),
-  onActualTemperatureSet = require('./EventHandlers/Temperature/ActualTemperatureSet');
+  onActualTemperatureSet = require('./EventHandlers/Temperature/ActualTemperatureSet'),
+  onPWMSet = require = ('./EventHandlers/PWM/PWMSet');
 
 
 
@@ -87,6 +88,9 @@ exports.init = function () {
   Logger.info(LOG + ' is successfully initialized', LOG);
 };
 
+/**
+ * Temperature changed
+ */
 TemperatureEmitter.on('pointTemperature:set', function (data) {
   onPointTemperatureSet(heaterPIDController, data);
 });
@@ -95,29 +99,22 @@ TemperatureEmitter.on('actualTemperature:set', function (data) {
   onActualTemperatureSet(Brewer, BrewHeaterPWM, SocketIO, data);
 });
 
-
 /**
- * PWM setted manually
- *
+ * PWM changed
  */
 PWMEmitter.on('pwm:set:manual', function (data) {
-  BrewHeaterPWM.setPWMMode('manual');
-  BrewHeaterPWM.setOutputManual(data.pwm);
+  onPWMSet(BrewHeaterPWM, data);
 });
-
 
 /**
  * Brew changed
- *
  */
 BrewEmitter.on('brew:changed', function (data) {
   SocketIO.emitActualBrew(data.brew);
 });
 
-
 /**
  * Brew Phase changed
- *
  */
 BrewEmitter.on('phase:changed', function (data) {
   SocketIO.emitPhaseChanged(data);
