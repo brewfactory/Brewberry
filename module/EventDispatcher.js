@@ -27,13 +27,13 @@ var
   heaterPIDController,
 
 // private notifiers
-  onManualSetPWM = require('./EventHandlers/ManualSetPWM'),
-  onActualPWMChanged = require('./EventHandlers/ActualPWMChanged'),
-  onActualTemperatureChanged = require('./EventHandlers/ActualTemperatureChanged'),
-  onPointTemperatureChanged = require('./EventHandlers/PointTemperatureChanged'),
-  onBrewChanged,
-  onBrewPaused = require('./EventHandlers/BrewPaused'),
-  onBrewEnded = require('./EventHandlers/BrewEnded'),
+  onManualSetPWM = require('./EventHandlers/PWM/ManualSetPWM'),
+  onActualPWMChanged = require('./EventHandlers/PWM/ActualPWMChanged'),
+  onActualTemperatureChanged = require('./EventHandlers/Temperature/ActualTemperatureChanged'),
+  onPointTemperatureChanged = require('./EventHandlers/Temperature/PointTemperatureChanged'),
+  onBrewChanged = require('./EventHandlers/Brew/BrewChanged'),
+  onBrewPaused = require('./EventHandlers/Brew/BrewPaused'),
+  onBrewEnded = require('./EventHandlers/Brew/BrewEnded'),
   onPhaseChanged = require('./EventHandlers/PhaseChange');
 
 
@@ -66,7 +66,9 @@ exports.init = function () {
   });
 
   // Brewer
-  Brewer.setBrewChangedNotifier(onBrewChanged);
+  Brewer.setBrewChangedNotifier(function (brew) {
+    onBrewChanged(BrewEmitter, brew);
+  });
   Brewer.setBrewPauseNotifier(function (isPaused) {
     onBrewPaused(BrewEmitter, isPaused);
   });
@@ -79,18 +81,6 @@ exports.init = function () {
 
   Logger.info(LOG + ' is successfully initialized', LOG);
 };
-
-/**
- * On Brew changed
- *
- * @method onBrewChanged
- */
-onBrewChanged = function (brew) {
-  Logger.event('Brew changed', LOG, { brew: brew });
-
-  BrewEmitter.emit('brew:changed', { brew: brew });
-};
-
 
 /**
  * PID Controller: set new point
