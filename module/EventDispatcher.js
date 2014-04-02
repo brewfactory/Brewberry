@@ -39,7 +39,7 @@ var
 // event handlers
   onPointTemperatureSet = require('./EventHandlers/Temperature/PointTemperatureSet'),
   onActualTemperatureSet = require('./EventHandlers/Temperature/ActualTemperatureSet'),
-  onPWMSet = require = ('./EventHandlers/PWM/PWMSet');
+  onPWMSet = require('./EventHandlers/PWM/PWMSet');
 
 
 

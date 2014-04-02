@@ -1,3 +1,4 @@
+'use strict';
 var PWMSet = require('../../../../module/EventHandlers/PWM/PWMSet');
 
 describe('EventHandlers:PWMSet', function () {

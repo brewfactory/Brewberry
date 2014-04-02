@@ -7,6 +7,7 @@
  *
  * @requires Logger
  */
+'use strict';
 
 var Logger = require('../../Logger');
 var LOG = __filename.split('/').pop();
@@ -20,5 +21,5 @@ module.exports = function (PWMEmitter, pwm) {
 
   Logger.data('Actual PWM', LOG, {pwm: pwm});
 
-  PWMEmitter.emit('pwm:set', { pwm: pwm });
+  return PWMEmitter.emit('pwm:set', { pwm: pwm });
 };

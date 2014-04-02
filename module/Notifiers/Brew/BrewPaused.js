@@ -5,6 +5,7 @@
  *
  * @requires Logger
  */
+'use strict';
 
 var Logger = require('../../Logger');
 var LOG = __filename.split('/').pop();

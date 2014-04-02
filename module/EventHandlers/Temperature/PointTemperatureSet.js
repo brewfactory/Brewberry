@@ -4,6 +4,8 @@
  * @module: PointTemperatureSet
  *
  */
+'use strict';
+
 module.exports = function (heaterPIDController, data) {
   var temp = data.temp;
 

@@ -5,8 +5,9 @@
  *
  */
 
+'use strict';
+
 var Logger = require('../../Logger');
-var LOG = __filename.split('/').pop();
 
 module.exports = function (Brewer, BrewHeaterPWM, SocketIO, data) {
   var temp = data.temp;

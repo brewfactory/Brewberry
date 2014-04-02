@@ -9,7 +9,7 @@
   "immed": true,
   "indent": 2,
   "latedef": true,
-  "newcap": true,
+  "newcap": false,
   "noarg": true,
   "quotmark": "single",
   "regexp": true,
@@ -20,8 +20,7 @@
   "smarttabs": true,
   "globals": {
     "angular": true,
-
-    "expect": false,
+    "expect": true,
     "describe": false,
     "it": false,
     "before": false,

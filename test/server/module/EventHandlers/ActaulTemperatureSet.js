@@ -1,3 +1,5 @@
+'use strict';
+
 var ActualTemperatureSet = require('../../../../module/EventHandlers/Temperature/ActualTemperatureSet');
 
 describe('EventHandlers:ActualTemperatureSet', function () {
@@ -9,7 +11,7 @@ describe('EventHandlers:ActualTemperatureSet', function () {
       getActualBrew: function() {
         return {
           name: 'test'
-        }
+        };
       }
     };
   };
@@ -22,7 +24,7 @@ describe('EventHandlers:ActualTemperatureSet', function () {
     };
   };
 
-  var BrewHeaterPWMMock = function (obj) {
+  var BrewHeaterPWMMock = function () {
     return {
       getActualPWM: function () {
       }
@@ -34,7 +36,6 @@ describe('EventHandlers:ActualTemperatureSet', function () {
   };
 
   it ('sets the temperature on the Brewer', function () {
-    var data = {};
     var mock = {};
     ActualTemperatureSet(BrewerMock(mock), BrewHeaterPWMMock({}), SocketIOMock({}), dataMock);
     expect(mock.temp).to.be.eql(0.2);
