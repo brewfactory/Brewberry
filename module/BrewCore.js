@@ -1,7 +1,7 @@
 /**
  * Handle events
  *
- * @module Event
+ * @module BrewCore
  **/
 
 
@@ -17,11 +17,11 @@ var
   BrewTemperature = require('./BrewTemperature'),
   BrewHeaterPWM = require('./BrewHeaterPWM'),
   Brewer = require('./Brewer'),
-  Event = require('./Event');
+  EventDispatcher = require('./EventDispatcher');
 
 
 /**
- * Initialize the Event module
+ * Initialize the BrewCore module
  *
  * @method init
  */
@@ -48,7 +48,7 @@ exports.init = function (options) {
 
   Brewer.init();
 
-  Event.init();
+  EventDispatcher.init();
 
   Logger.info(LOG + ' is successfully initialized', LOG);
 };

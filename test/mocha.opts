@@ -1,4 +1,4 @@
 --require test/server/setup
---reporter dot
+--reporter spec
 --ui bdd
 --recursive

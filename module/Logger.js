@@ -9,7 +9,7 @@
 var
   winston = require('winston'),
 
-  Log = require('./../schema/Log'),
+  LogModel = require('./../schema/Log'),
   LOG = __filename.split('/').pop(),
   Logger,
 
@@ -218,7 +218,7 @@ exports.status = function (temperature, pwm, name) {
 
     if (IS_PRODUCTION === true) {
 
-      log = new Log(logAdd);
+      log = new LogModel(logAdd);
 
       log.save(function save(err) {
         if (err) {
@@ -232,78 +232,3 @@ exports.status = function (temperature, pwm, name) {
 
   }
 };
-
-
-/**
- * Find previous brews
- *
- * @method findBrews
- * @param {Function} callback
- */
-exports.findBrews = function (callback) {
-  Log.aggregate({
-    $match: {
-      'date': {
-        '$ne': null
-      },
-      level: 'status'
-    }
-  }, {
-    $group: {
-      _id: { day: { $dayOfYear: '$date' }, name: '$add.name' },
-      from: { $min: '$date' },
-      to: { $max: '$date' }
-    }
-  }, {
-    $project: {
-      name: '$add.name',
-      from: '$from',
-      to: '$to'
-    }
-  }, function (err, logs) {
-
-    var
-      response = [],
-      i;
-
-    // err
-    if (err) {
-      return callback(err);
-    }
-
-    for (i in logs) {
-      response.push({
-        name: logs[i]._id.name,
-        from: logs[i].from,
-        to: logs[i].to
-      });
-    }
-
-    return callback(null, response);
-  });
-};
-
-
-/**
- * Find one brew
- *
- * @method findBrews
- * @param {Object} brew
- * @param {Function} callback
- */
-exports.findOneBrew = function (brew, callback) {
-
-  brew.from = new Date(brew.from);
-  brew.to = new Date(brew.to);
-
-  Log
-    .where('level', 'status')
-    .where('add.name', brew.name)
-    .where('date')
-    .gte(brew.from)
-    .lte(brew.to)
-    .select('add.temp add.pwm date')
-    .sort('date')
-    .exec(callback);
-};
-
