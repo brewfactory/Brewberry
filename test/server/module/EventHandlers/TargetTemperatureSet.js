@@ -1,13 +1,22 @@
 'use strict';
-var PointTemperatureSet = require('../../../../module/EventHandlers/Temperature/PointTemperatureSet');
+var TargetTemperatureSet = require('../../../../module/EventHandlers/Temperature/TargetTemperatureSet');
 
 describe('EventHandlers:PointTemperatureSet', function () {
 
-  it ('sets the Point temperature', function () {
+  var heaterPIDControllerMock = function (obj) {
+    return {
+      setPoint: function (temp) {
+        obj.temp = temp;
+      }
+    };
+  };
+
+  it ('sets the Target temperature', function () {
     var data = {};
-    data.pwm = 0;
-    PWMSet(BrewHeaterPWMMock(mode), data);
-    expect(mode.mode).to.be.eql('manual');
+    var ret = {};
+    data.temp = 3;
+    TargetTemperatureSet(heaterPIDControllerMock(ret), data)
+    expect(ret.temp).to.be.eql(3);
   });
 
 });
