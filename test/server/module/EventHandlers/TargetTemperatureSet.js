@@ -1,7 +1,7 @@
 'use strict';
 var TargetTemperatureSet = require('../../../../module/EventHandlers/Temperature/TargetTemperatureSet');
 
-describe('EventHandlers:PointTemperatureSet', function () {
+describe('EventHandlers:TargetTemperatureSet', function () {
 
   var heaterPIDControllerMock = function (obj) {
     return {
