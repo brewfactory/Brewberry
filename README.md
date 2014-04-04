@@ -1,5 +1,6 @@
 Brewberry
 =========
+[![Build Status](https://travis-ci.org/brewfactory/Brewberry.svg)](https://travis-ci.org/brewfactory/Brewberry)
 
 RaspberryPI powered BIAB brewing system. Brew you own beer.
 
