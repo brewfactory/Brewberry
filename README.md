@@ -18,5 +18,9 @@ Please check the [Wiki][1]
 
 Test
 ----
-    npm test
+```npm test```
+
+Coverage
+----
+```npm run coverage```
 
