@@ -15,10 +15,10 @@ module.exports = function (TemperatureEmitter, temp) {
 
   // err: temp
   if (isNaN(temp)) {
-    return Logger.error('Point Temp is undefined or isNaN', LOG, temp);
+    return Logger.error('Target Temp is undefined or isNaN', LOG, temp);
   }
 
-  Logger.event('Point temperature', LOG, {temp: temp});
+  Logger.event('Target temperature', LOG, {temp: temp});
 
-  TemperatureEmitter.emit('pointTemperature:set', { temp: temp });
+  TemperatureEmitter.emit('targetTemperature:set', { temp: temp });
 };
