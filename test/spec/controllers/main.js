@@ -68,11 +68,12 @@ describe('Controller: MainCtrl', function () {
     date.setHours(startHour.split(':')[0]);
     date.setMinutes(startHour.split(':')[1]);
     date.setSeconds(0);
+    date.setMilliseconds(0);
 
     $scope.brew.startHour = startHour;
 
     $scope.$digest();
 
-    expect($scope.brew.startTime).to.be.eql(date);
+    expect($scope.brew.startTime.getTime()).to.be.equal(date.getTime());
   });
 });
