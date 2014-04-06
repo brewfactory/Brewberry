@@ -25,6 +25,11 @@ describe('Controller: MainCtrl', function () {
   };
   var socketLastEmit;
 
+  var BrewService = {
+    data: null,
+    save: function (data) { this.data = data; }
+  };
+
   // load the controller's module
   beforeEach(module('brewpiApp'));
 
@@ -35,8 +40,11 @@ describe('Controller: MainCtrl', function () {
     $controller('MainCtrl', {
       $scope: $scope,
       socket: socket,
-      ActualBrewService: ActualBrewService
+      ActualBrewService: ActualBrewService,
+      BrewService: BrewService
     });
+
+    BrewService.data = null;
   }));
 
 
@@ -75,5 +83,53 @@ describe('Controller: MainCtrl', function () {
     $scope.$digest();
 
     expect($scope.brew.startTime.getTime()).to.be.equal(date.getTime());
+  });
+
+  it('should synchronize the actual brew', function () {
+    $scope.brew = {
+      name: 'Test name',
+      startTime: new Date(),
+      phases: [{ min: 2, temp: 44 }, { min: 23, temp: 24 }]
+    };
+
+    $scope.synchronize();
+
+    expect(BrewService.data).to.have.deep.property('name', $scope.brew.name);
+    expect(BrewService.data).to.have.deep.property('startTime', $scope.brew.startTime);
+    expect(BrewService.data).to.have.deep.property('phases[0].min', $scope.brew.phases[0].min);
+    expect(BrewService.data).to.have.deep.property('phases[0].temp', $scope.brew.phases[0].temp);
+    expect(BrewService.data).to.have.deep.property('phases[1].min', $scope.brew.phases[1].min);
+    expect(BrewService.data).to.have.deep.property('phases[1].temp', $scope.brew.phases[1].temp);
+  });
+
+  it('should remove the first phase', function () {
+    $scope.brew.name = 'Test name';
+    $scope.brew.startTime = new Date();
+    $scope.brew.phases = [{ min: 2, temp: 44 }, { min: 23, temp: 24 }];
+
+    $scope.removePhase(0);
+
+    expect($scope.brew.phases.length).to.be.equal(1);
+    expect($scope.brew).to.have.deep.property('phases[0].min', 23);
+    expect($scope.brew).to.have.deep.property('phases[0].temp', 24);
+  });
+
+  it('should add a new phase', function () {
+    $scope.newPhase = {
+      min: 1,
+      temp: 2
+    };
+
+    $scope.brew.phases = [];
+
+    $scope.addPhase();
+
+    expect($scope.brew.phases.length).to.be.equal(1);
+    expect($scope.brew).to.have.deep.property('phases[0].min', 1);
+    expect($scope.brew).to.have.deep.property('phases[0].temp', 2);
+
+    // Reset new phase
+    expect($scope.newPhase.min).to.be.equal(0);
+    expect($scope.newPhase.temp).to.be.equal(0);
   });
 });
