@@ -1,4 +1,7 @@
 var Logger = require('../../module/Logger');
-Logger.init();
+
+Logger.init({
+  consoleLevel: 'silent'
+});
 
 global.expect = require('chai').expect;
