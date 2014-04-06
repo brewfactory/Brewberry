@@ -11,23 +11,10 @@ var
 
   LogModel = require('./../schema/Log'),
   LOG = __filename.split('/').pop(),
-  Logger,
 
-  lastStatusReport = new Date(),
-  lastWaitingReports = [],
+  CONFIG = {
 
-  IS_PRODUCTION = false,
-  LOG_STATUS_FREQUENCY;
-
-
-/**
- * Initialize the module
- *
- * @method init
- * @param {Object} options
- */
-exports.init = function (options) {
-  var CONFIG = {
+    // Winston log levels
     levels: {
       silly: 0,
       verbose: 1,
@@ -49,18 +36,35 @@ exports.init = function (options) {
       debug: 'blue',
       error: 'red',
       silent: 'white'
-    }
-  };
+    },
+
+    isProduction: false,
+    statusFrequency: 30000
+  },
+
+  lastStatusReport = new Date(),
+  lastWaitingReports = [],
+
+  Logger;
+
+
+/**
+ * Initialize the module
+ *
+ * @method init
+ * @param {Object} options
+ */
+exports.init = function (options) {
 
   options = options || {};
   options.consoleLevel = options.consoleLevel || 'info';
   options.mode = options.mode || 'normal';
-  LOG_STATUS_FREQUENCY = options.logStatusFrequency || 30000;
+  CONFIG.statusFrequency = options.logStatusFrequency || CONFIG.statusFrequency;
 
-  IS_PRODUCTION = options.mode === 'normal';
+  CONFIG.isProduction = options.mode === 'normal';
 
   // Init winston logger
-  if(!Logger) {
+  if (!Logger) {
     Logger = new (winston.Logger)({
       transports: [],
       levels: CONFIG.levels,
@@ -82,7 +86,7 @@ exports.init = function (options) {
 
   Logger.info(LOG + ' is successfully initialized', LOG, {
     mode: options.mode,
-    isProduction: IS_PRODUCTION
+    isProduction: CONFIG.isProduction
   });
 };
 
@@ -118,7 +122,6 @@ exports.event = function () {
   var args = Array.prototype.slice.call(arguments);
   Logger.event.apply(Logger, args);
 };
-
 
 
 /**
@@ -214,7 +217,7 @@ exports.status = function (temperature, pwm, name) {
     logAdd,
     log;
 
-  if (now.getTime() - lastStatusReport.getTime() >= LOG_STATUS_FREQUENCY) {
+  if (now.getTime() - lastStatusReport.getTime() >= CONFIG.statusFrequency) {
     lastStatusReport = new Date();
 
     // additional
@@ -228,7 +231,7 @@ exports.status = function (temperature, pwm, name) {
       }
     };
 
-    if (IS_PRODUCTION === true) {
+    if (CONFIG.isProduction === true) {
 
       log = new LogModel(logAdd);
 
