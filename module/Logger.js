@@ -27,7 +27,7 @@ var
  * @param {Object} options
  */
 exports.init = function (options) {
-  var config = {
+  var CONFIG = {
     levels: {
       silly: 0,
       verbose: 1,
@@ -36,7 +36,8 @@ exports.init = function (options) {
       info: 4,
       warn: 5,
       debug: 6,
-      error: 7
+      error: 7,
+      silent: 8
     },
     colors: {
       silly: 'white',
@@ -46,7 +47,8 @@ exports.init = function (options) {
       info: 'cyan',
       warn: 'yellow',
       debug: 'blue',
-      error: 'red'
+      error: 'red',
+      silent: 'white'
     }
   };
 
@@ -57,16 +59,26 @@ exports.init = function (options) {
 
   IS_PRODUCTION = options.mode === 'normal';
 
-  Logger = new (winston.Logger)({
-    transports: [
-      new (winston.transports.Console)({
-        colorize: true,
-        level: options.consoleLevel
-      })
-    ],
-    levels: config.levels,
-    colors: config.colors
-  });
+  // Init winston logger
+  if(!Logger) {
+    Logger = new (winston.Logger)({
+      transports: [],
+      levels: CONFIG.levels,
+      colors: CONFIG.colors
+    });
+  }
+
+  // Remove transports
+  else {
+    Logger.remove(winston.transports.Console);
+  }
+
+  // Add transports
+  Logger.add(winston.transports.Console, {
+      colorize: true,
+      level: options.consoleLevel
+    }
+  );
 
   Logger.info(LOG + ' is successfully initialized', LOG, {
     mode: options.mode,

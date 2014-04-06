@@ -30,14 +30,14 @@ var
   onManualSetPWM = require('./Notifiers/PWM/ManualSetPWM'),
   onActualPWMChanged = require('./Notifiers/PWM/ActualPWMChanged'),
   onActualTemperatureChanged = require('./Notifiers/Temperature/ActualTemperatureChanged'),
-  onPointTemperatureChanged = require('./Notifiers/Temperature/PointTemperatureChanged'),
+  onTargetTemperatureChanged = require('./Notifiers/Temperature/TargetTemperatureChanged'),
   onBrewChanged = require('./Notifiers/Brew/BrewChanged'),
   onBrewPaused = require('./Notifiers/Brew/BrewPaused'),
   onBrewEnded = require('./Notifiers/Brew/BrewEnded'),
   onPhaseChanged = require('./Notifiers/Phase/PhaseChange'),
 
 // event handlers
-  onPointTemperatureSet = require('./EventHandlers/Temperature/PointTemperatureSet'),
+  onTargetTemperatureSet = require('./EventHandlers/Temperature/TargetTemperatureSet'),
   onActualTemperatureSet = require('./EventHandlers/Temperature/ActualTemperatureSet'),
   onPWMSet = require('./EventHandlers/PWM/PWMSet');
 
@@ -60,7 +60,7 @@ exports.init = function () {
     onActualTemperatureChanged(TemperatureEmitter, pwm);
   });
   BrewTemperature.setPointNotifier(function (temp){
-    onPointTemperatureChanged(TemperatureEmitter, temp);
+    onTargetTemperatureChanged(TemperatureEmitter, temp);
   });
 
   // PIDController
@@ -91,8 +91,8 @@ exports.init = function () {
 /**
  * Temperature changed
  */
-TemperatureEmitter.on('pointTemperature:set', function (data) {
-  onPointTemperatureSet(heaterPIDController, data);
+TemperatureEmitter.on('targetTemperature:set', function (data) {
+  onTargetTemperatureSet(heaterPIDController, data);
 });
 
 TemperatureEmitter.on('actualTemperature:set', function (data) {
