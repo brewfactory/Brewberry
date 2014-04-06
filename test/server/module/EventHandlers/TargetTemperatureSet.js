@@ -15,7 +15,7 @@ describe('EventHandlers:TargetTemperatureSet', function () {
     var data = {};
     var ret = {};
     data.temp = 3;
-    TargetTemperatureSet(heaterPIDControllerMock(ret), data)
+    TargetTemperatureSet(heaterPIDControllerMock(ret), data);
     expect(ret.temp).to.be.eql(3);
   });
 

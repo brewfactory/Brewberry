@@ -14,7 +14,6 @@ describe('Notifiers:ManualSetPWM', function () {
     });
   });
 
-
   describe('when brew is in progress', function () {
     it ('fails silently, logs it', function () {
       var obj = {};
@@ -22,6 +21,5 @@ describe('Notifiers:ManualSetPWM', function () {
       ManualSetPWM(PWMEmitterMock(obj), true, data);
     });
   });
-
 
 });
