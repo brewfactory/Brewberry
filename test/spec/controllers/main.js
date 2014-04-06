@@ -3,11 +3,25 @@
 describe('Controller: MainCtrl', function () {
   var $scope;
   var socket = {
-    on: function () {},
-    emit: function (name, data) { socketLastEmit = { name: name, data: data }; }
+    on: function () {
+    },
+    emit: function (name, data) {
+      socketLastEmit = { name: name, data: data };
+    }
   };
   var ActualBrewService = {
-    onUpdate: function () {}
+    actualBrew: {
+      name: null,
+      phases: [],
+      startTime: null,
+      paused: false
+    },
+
+    onUpdate: function () {
+    },
+    getActual: function () {
+      return this.actualBrew;
+    }
   };
   var socketLastEmit;
 
@@ -45,5 +59,20 @@ describe('Controller: MainCtrl', function () {
     $scope.setPwm();
     expect(socketLastEmit.name).to.be.equal('pwm:set:manual');
     expect(socketLastEmit.data.pwm).to.be.equal($scope.pwm.value);
+  });
+
+  it('should watch start hour', function () {
+    var startHour = '11:13';
+    var date = new Date();
+
+    date.setHours(startHour.split(':')[0]);
+    date.setMinutes(startHour.split(':')[1]);
+    date.setSeconds(0);
+
+    $scope.brew.startHour = startHour;
+
+    $scope.$digest();
+
+    expect($scope.brew.startTime).to.be.eql(date);
   });
 });
