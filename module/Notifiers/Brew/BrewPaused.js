@@ -15,7 +15,7 @@ module.exports = function (BrewEmitter, isPaused) {
     isPaused: !!isPaused
   });
 
-  BrewEmitter.emit('brew:pause', {
+  BrewEmitter.emit('brew:paused', {
     isPaused: !!isPaused
   });
 };

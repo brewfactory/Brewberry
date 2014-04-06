@@ -1,17 +1,8 @@
 'use strict';
 var PWMSet = require('../../../../module/EventHandlers/PWM/PWMSet');
+var BrewHeaterPWMMock = require('../Helpers/BrewHeaterPWMMock');
 
 describe('EventHandlers:PWMSet', function () {
-  var BrewHeaterPWMMock = function (obj) {
-    return {
-      setPWMMode: function (mode) {
-        obj.mode = mode;
-      },
-      setOutputManual: function(output) {
-        obj.output = output;
-      }
-    };
-  };
 
   it ('sets the PWM mode to manual', function () {
     var data = {};
