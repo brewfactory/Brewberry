@@ -3,12 +3,14 @@
 describe('Controller: MainCtrl', function () {
   var $scope;
   var socket = {
+    socketLastEmit: null,
     on: function () {
     },
     emit: function (name, data) {
-      socketLastEmit = { name: name, data: data };
+      this.socketLastEmit = { name: name, data: data };
     }
   };
+
   var ActualBrewService = {
     actualBrew: {
       name: null,
@@ -23,11 +25,14 @@ describe('Controller: MainCtrl', function () {
       return this.actualBrew;
     }
   };
-  var socketLastEmit;
 
   var BrewService = {
     data: null,
-    save: function (data) { this.data = data; }
+    isPaused: false,
+    isStopped: false,
+    save: function (data) { this.data = data; },
+    pause: function () { this.isPaused = true; },
+    stop: function () { this.isStopped = true; }
   };
 
   // load the controller's module
@@ -44,7 +49,16 @@ describe('Controller: MainCtrl', function () {
       BrewService: BrewService
     });
 
+    // Reset ActualBrewService
+    ActualBrewService.actualBrew.name = null;
+    ActualBrewService.actualBrew.phases = [];
+    ActualBrewService.actualBrew.startTime = null;
+    ActualBrewService.actualBrew.paused = null;
+
+    // Reset BrewService
     BrewService.data = null;
+    BrewService.isPaused = false;
+    BrewService.isStopped = null;
   }));
 
 
@@ -65,8 +79,8 @@ describe('Controller: MainCtrl', function () {
     $scope.pwm.value = 0.87;
 
     $scope.setPwm();
-    expect(socketLastEmit.name).to.be.equal('pwm:set:manual');
-    expect(socketLastEmit.data.pwm).to.be.equal($scope.pwm.value);
+    expect(socket.socketLastEmit.name).to.be.equal('pwm:set:manual');
+    expect(socket.socketLastEmit.data.pwm).to.be.equal($scope.pwm.value);
   });
 
   it('should watch start hour', function () {
@@ -124,12 +138,28 @@ describe('Controller: MainCtrl', function () {
 
     $scope.addPhase();
 
-    expect($scope.brew.phases.length).to.be.equal(1);
+    expect($scope.brew.phases.length).to.be.eql(1);
     expect($scope.brew).to.have.deep.property('phases[0].min', 1);
     expect($scope.brew).to.have.deep.property('phases[0].temp', 2);
 
     // Reset new phase
-    expect($scope.newPhase.min).to.be.equal(0);
-    expect($scope.newPhase.temp).to.be.equal(0);
+    expect($scope.newPhase.min).to.be.eql(0);
+    expect($scope.newPhase.temp).to.be.eql(0);
+  });
+
+  it('should pause the brew', function () {
+    $scope.pause();
+
+    expect(BrewService.isPaused).to.be.eql(true);
+  });
+
+  it('should stop the brew', function () {
+    $scope.stop();
+
+    expect(BrewService.isStopped).to.be.eql(true);
   });
 });
+
+// TODO: test ActualBrewService.onUpdate
+
+// TODO: test ActualBrewService init
