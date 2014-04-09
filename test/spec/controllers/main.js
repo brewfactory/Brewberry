@@ -158,8 +158,28 @@ describe('Controller: MainCtrl', function () {
 
     expect(BrewService.isStopped).to.be.eql(true);
   });
+
+// TODO: spy onUpdate
+//  it('ActualBrewService update should update the actual brew', function () {
+//
+//    $scope.$apply(function (){
+//      $scope.$broadcast('msg id', {
+//        actualBrew: {
+//          name: 'Test brew',
+//          phases: [{ min: 2, temp: 44 }],
+//          startTime: null,
+//          paused: false
+//        }
+//      });
+//    });
+//
+//    $scope.synchronize();
+//
+//    expect($scope.actualBrew).to.have.deep.property('name', 'Test brew');
+//    expect($scope.actualBrew).to.have.deep.property('phases[0].min', 2);
+//    expect($scope.actualBrew).to.have.deep.property('phases[0].emp', 44);
+//  });
 });
 
-// TODO: test ActualBrewService.onUpdate
 
 // TODO: test ActualBrewService init
