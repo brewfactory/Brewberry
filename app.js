@@ -19,6 +19,8 @@ var
   routeBrew = require('./routes/brew'),
   routeLog = require('./routes/log'),
 
+  Brewer = require('./module/Brewer'),
+
   Logger = require('./module/Logger'),
   LOG = __filename.split('/').pop(),
 
@@ -75,9 +77,15 @@ if ('production' === app.get('env')) {
 /* ********** region routing ********** */
 
 // brew
-app.post('/brew', routeBrew.setBrew);
-app.get('/brew/stop', routeBrew.cancelBrew);
-app.get('/brew/pause', routeBrew.pauseBrew);
+app.post('/brew', function (req, res) {
+  routeBrew.setBrew(Brewer, req, res);
+});
+app.get('/brew/stop', function (req, res) {
+  routeBrew.cancelBrew(Brewer, req, res);
+});
+app.get('/brew/pause', function (req, res) {
+  routeBrew.pauseBrew(Brewer, req, res);
+});
 
 // logs
 app.post('/logs', routeLog.findOneBrewLog);

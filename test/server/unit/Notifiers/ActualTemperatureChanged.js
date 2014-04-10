@@ -1,6 +1,6 @@
 'use strict';
 var ActualTemperatureChanged = require('../../../../module/Notifiers/Temperature/ActualTemperatureChanged');
-var TempEmitterMock = require('../Helpers/EmitterMock');
+var TempEmitterMock = require('../../helpers/EmitterMock');
 
 describe('Notifiers:ActualTemperatureChanged', function () {
 

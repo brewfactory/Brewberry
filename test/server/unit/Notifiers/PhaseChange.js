@@ -1,6 +1,6 @@
 'use strict';
 var PhaseChange = require('../../../../module/Notifiers/Phase/PhaseChange');
-var BrewEmitterMock = require('../Helpers/EmitterMock');
+var BrewEmitterMock = require('../../helpers/EmitterMock');
 
 describe('Notifiers:PhaseChange', function () {
 
