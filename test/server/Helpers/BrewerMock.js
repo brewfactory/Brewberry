@@ -8,6 +8,11 @@ module.exports = function (obj) {
       return {
         name: 'test'
       };
+    },
+    setBrew: function (name, phase, startTime) {
+      obj.name = name;
+      obj.phase = phase;
+      obj.startTime = startTime;
     }
   };
 };

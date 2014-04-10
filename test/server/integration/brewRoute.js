@@ -1,26 +1,36 @@
 'use strict';
 
 var route = require('../../../routes/brew');
-var responseMock = require('../helpers/responseMock');
+var ResponseMock = require('../helpers/ResponseMock');
+var BrewerMock = require('../helpers/BrewerMock');
 
 describe('Routes:brew', function () {
   describe('when sets a brew', function () {
-    it('configures the Brew module', function () {
 
+    it('configures the Brew module', function () {
+      var req = {
+        param: function() {
+          return 'test';
+        }
+      };
+      var obj = {};
+      route.setBrew(BrewerMock(obj), req, ResponseMock({}));
+      expect(obj.name).to.be.eql('test');
+      expect(obj.phase).to.be.eql('test');
+      expect(obj.startTime).to.be.eql('test');
     });
+
     it('responds with a JSON', function () {
       var req = {
         param: function() {}
       };
-      var Brewer = {
-        setBrew: function() {}
-      };
       var obj = {};
-      route.setBrew(Brewer, req, responseMock(obj));
+      route.setBrew(BrewerMock({}), req, ResponseMock(obj));
       expect(obj.data).to.be.eql({
         status:'ok'
       });
     });
+
   });
 
   describe('when cancels a brew', function () {
