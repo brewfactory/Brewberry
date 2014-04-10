@@ -6,9 +6,7 @@
 
 'use strict';
 
-var
-  Logger = require('./../module/Logger'),
-  LogModel = require('./../schema/Log');
+var LogModel = require('./../schema/Log');
 
 
 /**
