@@ -1,8 +1,8 @@
 'use strict';
 
 var route = require('../../../../routes/brew');
-var ResponseMock = require('../../helpers/ResponseMock');
-var BrewerMock = require('../../helpers/BrewerMock');
+var ResponseMock = require('../../helper/ResponseMock');
+var BrewerMock = require('../../helper/BrewerMock');
 
 describe('Routes:brew', function () {
   describe('when sets a brew', function () {

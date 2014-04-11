@@ -1,6 +1,6 @@
 'use strict';
 var ManualSetPWM = require('../../../../module/Notifiers/PWM/ManualSetPWM');
-var PWMEmitterMock = require('../../helpers/EmitterMock');
+var PWMEmitterMock = require('../../helper/EmitterMock');
 
 describe('Notifiers:ManualSetPWM', function () {
 
