@@ -13,6 +13,9 @@ module.exports = function (obj) {
       obj.name = name;
       obj.phase = phase;
       obj.startTime = startTime;
+    },
+    cancelBrew: function () {
+      obj.canceled = true;
     }
   };
 };

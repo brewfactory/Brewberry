@@ -34,8 +34,21 @@ describe('Routes:brew', function () {
   });
 
   describe('when cancels a brew', function () {
-    it('cancels');
-    it('responds with a JSON');
+
+    it('cancels', function() {
+      var obj = {};
+      route.cancelBrew(BrewerMock(obj), null, ResponseMock({}));
+      expect(obj.canceled).to.be.eql(true);
+    });
+
+    it('responds with a JSON', function () {
+      var obj = {};
+      route.cancelBrew(BrewerMock({}), null, ResponseMock(obj));
+      expect(obj.data).to.be.eql({
+        status: 'ok'
+      });
+    });
+
   });
 
   describe('when pauses a brew', function () {
