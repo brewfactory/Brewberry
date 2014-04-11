@@ -16,6 +16,13 @@ module.exports = function (obj) {
     },
     cancelBrew: function () {
       obj.canceled = true;
+    },
+    setPaused: function () {
+      obj.paused = true;
+      return true;
+    },
+    emitBrewChanged: function () {
+      obj.emitChanged = true;
     }
   };
 };

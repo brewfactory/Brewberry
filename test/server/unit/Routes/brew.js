@@ -1,8 +1,8 @@
 'use strict';
 
-var route = require('../../../routes/brew');
-var ResponseMock = require('../helpers/ResponseMock');
-var BrewerMock = require('../helpers/BrewerMock');
+var route = require('../../../../routes/brew');
+var ResponseMock = require('../../helpers/ResponseMock');
+var BrewerMock = require('../../helpers/BrewerMock');
 
 describe('Routes:brew', function () {
   describe('when sets a brew', function () {
@@ -52,7 +52,21 @@ describe('Routes:brew', function () {
   });
 
   describe('when pauses a brew', function () {
-    it('pauses');
-    it('responds with a JSON');
+
+    it('pauses', function () {
+      var obj = {};
+      route.pauseBrew(BrewerMock(obj), null, ResponseMock({}));
+      expect(obj.paused).to.be.eql(true);
+    });
+
+    it('responds with a JSON', function () {
+      var obj = {};
+      route.pauseBrew(BrewerMock({}), null, ResponseMock(obj));
+      expect(obj.data).to.be.eql({
+        status: 'ok',
+        paused: true
+      });
+    });
+
   });
 });
