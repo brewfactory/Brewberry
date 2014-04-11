@@ -6,7 +6,6 @@
 
 'use strict';
 
-var LogModel = require('./../schema/Log');
 
 
 /**
@@ -17,7 +16,7 @@ var LogModel = require('./../schema/Log');
  * @param {Object} res Express Object
  * @param {Function} next Express Function
  */
-module.exports.findBrewLogs = function (req, res, next) {
+module.exports.findBrewLogs = function (LogModel, req, res, next) {
   LogModel.findBrews(function (err, result) {
 
     // err
@@ -38,7 +37,7 @@ module.exports.findBrewLogs = function (req, res, next) {
  * @param {Object} res Express Object
  * @param {Function} next Express Function
  */
-module.exports.findOneBrewLog = function (req, res, next) {
+module.exports.findOneBrewLog = function (LogModel, req, res, next) {
   var brew = req.param('brew');
 
   // err: brew
