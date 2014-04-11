@@ -1,6 +1,6 @@
 'use strict';
 var BrewPaused = require('../../../../module/Notifiers/Brew/BrewPaused');
-var BrewEmitterMock = require('../Helpers/EmitterMock');
+var BrewEmitterMock = require('../../helper/EmitterMock');
 
 describe('Notifiers:BrewPaused', function () {
 

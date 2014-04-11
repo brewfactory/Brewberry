@@ -1,9 +1,9 @@
 'use strict';
 
 var ActualTemperatureSet = require('../../../../module/EventHandlers/Temperature/ActualTemperatureSet');
-var BrewerMock = require('../Helpers/BrewerMock');
-var SocketIOMock = require('../Helpers/SocketIOMock');
-var BrewHeaterPWMMock = require('../Helpers/BrewHeaterPWMMock');
+var BrewerMock = require('../../helper/BrewerMock');
+var SocketIOMock = require('../../helper/SocketIOMock');
+var BrewHeaterPWMMock = require('../../helper/BrewHeaterPWMMock');
 
 
 describe('EventHandlers:ActualTemperatureSet', function () {
