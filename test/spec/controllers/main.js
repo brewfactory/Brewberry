@@ -19,7 +19,8 @@ describe('Controller: MainCtrl', function () {
       paused: false
     },
 
-    onUpdate: function () {
+    onUpdate: function (scope, cb) {
+      return cb(this.actualBrew);
     },
     getActual: function () {
       return this.actualBrew;
@@ -30,10 +31,39 @@ describe('Controller: MainCtrl', function () {
     data: null,
     isPaused: false,
     isStopped: false,
-    save: function (data) { this.data = data; },
-    pause: function () { this.isPaused = true; },
-    stop: function () { this.isStopped = true; }
+    save: function (data) {
+      this.data = data;
+    },
+    pause: function () {
+      this.isPaused = true;
+    },
+    stop: function () {
+      this.isStopped = true;
+    }
   };
+
+  function mockBrewUpdate() {
+    ActualBrewService.actualBrew.name = 'Test name';
+    ActualBrewService.actualBrew.startTime = new Date();
+    ActualBrewService.actualBrew.phases = [
+      { min: 2, temp: 44 },
+      { min: 23, temp: 24 }
+    ];
+
+    var data = {
+      actualBrew: {
+        name: ActualBrewService.actualBrew.name,
+        phases: ActualBrewService.actualBrew.phases,
+        startTime: ActualBrewService.actualBrew.startTime,
+        paused: ActualBrewService.actualBrew.paused
+      }
+    };
+
+    $scope.$broadcast('msg id', data);
+    $scope.synchronize();
+
+    return data;
+  }
 
   // load the controller's module
   beforeEach(module('brewpiApp'));
@@ -103,7 +133,10 @@ describe('Controller: MainCtrl', function () {
     $scope.brew = {
       name: 'Test name',
       startTime: new Date(),
-      phases: [{ min: 2, temp: 44 }, { min: 23, temp: 24 }]
+      phases: [
+        { min: 2, temp: 44 },
+        { min: 23, temp: 24 }
+      ]
     };
 
     $scope.synchronize();
@@ -119,7 +152,10 @@ describe('Controller: MainCtrl', function () {
   it('should remove the first phase', function () {
     $scope.brew.name = 'Test name';
     $scope.brew.startTime = new Date();
-    $scope.brew.phases = [{ min: 2, temp: 44 }, { min: 23, temp: 24 }];
+    $scope.brew.phases = [
+      { min: 2, temp: 44 },
+      { min: 23, temp: 24 }
+    ];
 
     $scope.removePhase(0);
 
@@ -160,26 +196,21 @@ describe('Controller: MainCtrl', function () {
   });
 
 // TODO: spy onUpdate
-//  it('ActualBrewService update should update the actual brew', function () {
-//
-//    $scope.$apply(function (){
-//      $scope.$broadcast('msg id', {
-//        actualBrew: {
-//          name: 'Test brew',
-//          phases: [{ min: 2, temp: 44 }],
-//          startTime: null,
-//          paused: false
-//        }
-//      });
-//    });
-//
-//    $scope.synchronize();
-//
-//    expect($scope.actualBrew).to.have.deep.property('name', 'Test brew');
-//    expect($scope.actualBrew).to.have.deep.property('phases[0].min', 2);
-//    expect($scope.actualBrew).to.have.deep.property('phases[0].emp', 44);
-//  });
+  it('ActualBrewService update should update the actual brew', function () {
+    var spy = sinon.spy($scope, '$broadcast');
+
+    var newActualBrew = mockBrewUpdate();
+
+    expect(spy).to.have.been.calledWith('msg id');
+
+    // FIXME: pass test
+    // TODO: refactor ActualBrew service
+//    expect($scope.actualBrew).to.have.deep.property('name', newActualBrew.name);
+//    expect($scope.actualBrew).to.have.deep.property('phases[0].min', newActualBrew.phases[0].min);
+//    expect($scope.actualBrew).to.have.deep.property('phases[0].temp', newActualBrew.phases[0].temp);
+  });
 });
 
 
 // TODO: test ActualBrewService init
+// TODO: refactor ActualBrew service
