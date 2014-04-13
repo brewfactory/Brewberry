@@ -61,6 +61,7 @@ angular.module('brewpiApp')
       $scope.brew.startTime.setHours(hour);
       $scope.brew.startTime.setMinutes(min);
       $scope.brew.startTime.setSeconds(0);
+      $scope.brew.startTime.setMilliseconds(0);
 
     });
 

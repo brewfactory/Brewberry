@@ -1,5 +1,6 @@
 'use strict';
 
+// TODO: refactor
 angular.module('brewpiApp')
   .factory('ActualBrewService', function ($rootScope, socket) {
 
