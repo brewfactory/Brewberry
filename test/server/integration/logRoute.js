@@ -1,3 +1,0 @@
-describe('Log route', function () {
-
-});

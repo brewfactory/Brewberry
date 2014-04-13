@@ -1,6 +1,6 @@
 'use strict';
 var PWMSet = require('../../../../module/EventHandlers/PWM/PWMSet');
-var BrewHeaterPWMMock = require('../Helpers/BrewHeaterPWMMock');
+var BrewHeaterPWMMock = require('../../helper/BrewHeaterPWMMock');
 
 describe('EventHandlers:PWMSet', function () {
 

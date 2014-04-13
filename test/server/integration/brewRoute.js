@@ -1,3 +1,0 @@
-describe('Brew route', function () {
-
-});

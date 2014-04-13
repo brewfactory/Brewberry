@@ -1,6 +1,6 @@
 'use strict';
 var ActualPWMChanged = require('../../../../module/Notifiers/PWM/ActualPWMChanged');
-var PWMEmitterMock = require('../Helpers/EmitterMock');
+var PWMEmitterMock = require('../../helper/EmitterMock');
 
 describe('Notifiers:ActualPWMChanged', function () {
 
