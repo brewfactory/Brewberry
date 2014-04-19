@@ -48,13 +48,20 @@ describe.only('SocketIO\'s', function () {
       SocketIO.emitActualBrew(data);
       expect(obj.emit.event).to.be.eql('actual:brew');
       expect(obj.emit.data).to.be.eql(data);
-
     });
   });
 
   describe('emitPhaseChanged', function () {
-    it('returns if no socketio server is set');
-    it('emits phase changed event');
+    it('emits phase changed event', function () {
+      var obj = {};
+      var data = {
+        test: 'such brew'
+      };
+      SocketIO.init(SocketIOMock(obj));
+      SocketIO.emitPhaseChanged(data);
+      expect(obj.emit.event).to.be.eql('phase:changed');
+      expect(obj.emit.data).to.be.eql(data);
+    });
   });
 
   describe('onManualSetPWM', function () {
