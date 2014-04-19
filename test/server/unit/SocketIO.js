@@ -65,7 +65,19 @@ describe.only('SocketIO\'s', function () {
   });
 
   describe('onManualSetPWM', function () {
-    it('calls onManualSetPWMNotifier');
+    it('calls onManualSetPWMNotifier', function () {
+      var obj = {};
+      var data = {
+        pwm: 0.3
+      };
+      var notifier = function (data) {
+        obj.data = data;
+      };
+      SocketIO.init(SocketIOMock(obj));
+      SocketIO.setManualPWMNotifier(notifier);
+      SocketIO.onManualSetPWM(data);
+      expect(obj.data).to.be.eql(data.pwm / 100);
+    });
   });
 
 });
