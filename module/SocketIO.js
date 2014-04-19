@@ -6,22 +6,23 @@
 
 'use strict';
 
-var
-  socketIO = require('socket.io'),
-  Logger = require('./Logger'),
-  Brewer = require('./Brewer'),
-  LOG = __filename.split('/').pop(),
-  io,
-  lastStatusSent = new Date(),
+var socketIO = require('socket.io');
+var  Logger = require('./Logger');
+var Brewer = require('./Brewer');
+var LOG = __filename.split('/').pop();
+var io = {};
+var lastStatusSent = new Date();
 
 // event notifiers
-  onManualSetPWMNotifier,
+var onManualSetPWMNotifier;
 
 // private fns
-  onSocketConnection,
-  onManualSetPWM,
+var onSocketConnection;
+var onManualSetPWM;
 
-  STATUS_FREQ;
+var STATUS_FREQ = {
+  value: 0
+};
 
 
 /**
@@ -32,7 +33,7 @@ var
 exports.init = function (server, options) {
   options = options || {};
   options.logLevel = options.logLevel || 1;
-  STATUS_FREQ = options.logStatusFrequency || 500;
+  STATUS_FREQ.value = options.logStatusFrequency || 500;
 
   if (!server) {
     return Logger.error('Server is undefined', LOG);
@@ -53,7 +54,7 @@ exports.init = function (server, options) {
  */
 exports.onStatusChange = function (data) {
   var diff = new Date().getTime() - lastStatusSent.getTime();
-  if (diff >= STATUS_FREQ) {
+  if (diff >= STATUS_FREQ.value) {
     io.sockets.emit('status', {
       temp: data.temp,
       pwm: data.pwm
@@ -142,4 +143,6 @@ onManualSetPWM = function (data) {
 if (process.env.NODE_ENV === 'test') {
   exports.onManualSetPWM = onManualSetPWM;
   exports.onSocketConnection = onSocketConnection;
+  exports.io = io;
+  exports.STATUS_FREQ = STATUS_FREQ;
 }
