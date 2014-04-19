@@ -138,3 +138,8 @@ onManualSetPWM = function (data) {
     onManualSetPWMNotifier(pwmValue);
   }
 };
+
+if (process.env.NODE_ENV === 'test') {
+  exports.onManualSetPWM = onManualSetPWM;
+  exports.onSocketConnection = onSocketConnection;
+}
