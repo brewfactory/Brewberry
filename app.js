@@ -26,7 +26,9 @@ var
   Logger = require('./module/Logger'),
   LOG = __filename.split('/').pop(),
 
+  socketIO = require('socket.io'),
   SocketIO = require('./module/SocketIO'),
+  io,
   BrewCore = require('./module/BrewCore'),
 
   MODE = 'production' === app.get('env') ? 'normal' : 'dev',
@@ -106,8 +108,10 @@ server = http.createServer(app).listen(app.get('port'), function () {
   Logger.info('Server is listening.', LOG, { port: app.get('port') });
 });
 
-SocketIO.init(server, {
-  logLevel: 1,
+io = socketIO.listen(server);
+io.set('log level', 1);
+
+SocketIO.init(io, {
   logStatusFrequency: 500
 });
 

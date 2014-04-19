@@ -6,8 +6,7 @@
 
 'use strict';
 
-var socketIO = require('socket.io');
-var  Logger = require('./Logger');
+var Logger = require('./Logger');
 var Brewer = require('./Brewer');
 var LOG = __filename.split('/').pop();
 var io = {};
@@ -30,17 +29,11 @@ var STATUS_FREQ = {
  *
  * @method init
  */
-exports.init = function (server, options) {
+exports.init = function (_io, options) {
+  io = _io;
   options = options || {};
-  options.logLevel = options.logLevel || 1;
   STATUS_FREQ.value = options.logStatusFrequency || 500;
 
-  if (!server) {
-    return Logger.error('Server is undefined', LOG);
-  }
-
-  io = socketIO.listen(server);
-  io.set('log level', options.logLevel);
   io.sockets.on('connection', onSocketConnection);
 
   Logger.info(LOG + ' is successfully initialized', LOG);
