@@ -33,17 +33,23 @@ describe.only('SocketIO\'s', function () {
     });
   });
 
-  describe('setManualPWMNotifier', function () {
-    it('sets the callback');
-  });
-
   describe('onSocketConnection', function () {
     it('registers an event handler');
     it('notifies the brewer');
   });
 
   describe('emitActualBrew', function () {
-    it('notifies the brewer');
+    it('emits', function () {
+      var obj = {};
+      var data = {
+        test: 'such brew'
+      };
+      SocketIO.init(SocketIOMock(obj));
+      SocketIO.emitActualBrew(data);
+      expect(obj.emit.event).to.be.eql('actual:brew');
+      expect(obj.emit.data).to.be.eql(data);
+
+    });
   });
 
   describe('emitPhaseChanged', function () {
