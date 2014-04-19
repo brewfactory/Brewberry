@@ -61,7 +61,7 @@
   "scripts": {
     "test": "npm run test-backend; npm run test-frontend",
     "test-frontend": "grunt test",
-    "test-backend": "mocha test/server",
+    "test-backend": "NODE_ENV=test mocha test/server",
     "start": "node app.js",
     "coverage": "istanbul cover _mocha test/server --recursive -- -u exports -R spec && open coverage/lcov-report/index.html"
   }
