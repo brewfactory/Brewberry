@@ -6,35 +6,36 @@
 
 'use strict';
 
-var
-  express = require('express'),
-  http = require('http'),
-  path = require('path'),
-
-  mongoose = require('mongoose'),
-  nconf = require('nconf'),
-
-  app = module.exports = express(),
-
-  routeBrew = require('./routes/brew'),
-  routeLog = require('./routes/log'),
-
-  Brewer = require('./module/Brewer'),
-  LogModel = require('./schema/Log'),
-
-
-  Logger = require('./module/Logger'),
-  LOG = __filename.split('/').pop(),
-
-  SocketIO = require('./module/SocketIO'),
-  BrewCore = require('./module/BrewCore'),
-
-  MODE = 'production' === app.get('env') ? 'normal' : 'dev',
-
-  server;
-
-
 /* ********** region Configuration ********** */
+
+
+var express = require('express');
+var http = require('http');
+var path = require('path');
+
+var mongoose = require('mongoose');
+var nconf = require('nconf');
+
+var app = module.exports = express();
+
+var routeBrew = require('./routes/brew');
+var routeLog = require('./routes/log');
+
+var Brewer = require('./module/Brewer');
+var LogModel = require('./schema/Log');
+
+var Logger = require('./module/Logger');
+var LOG = __filename.split('/').pop();
+
+var socketIO = require('socket.io');
+var SocketIO = require('./module/SocketIO');
+
+var BrewCore = require('./module/BrewCore');
+
+var MODE = 'production' === app.get('env') ? 'normal' : 'dev';
+
+var io;
+var server;
 
 if ('production' === app.get('env')) {
   nconf.file(path.join(__dirname, 'config/config.json'));
@@ -106,8 +107,10 @@ server = http.createServer(app).listen(app.get('port'), function () {
   Logger.info('Server is listening.', LOG, { port: app.get('port') });
 });
 
-SocketIO.init(server, {
-  logLevel: 1,
+io = socketIO.listen(server);
+io.set('log level', 1);
+
+SocketIO.init(io, {
   logStatusFrequency: 500
 });
 
