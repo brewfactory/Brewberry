@@ -7,7 +7,7 @@ var socketio = require('socket.io');
 var io = socketio.listen(http.createServer());
 
 
-describe.only('SocketIO\'s', function () {
+describe('SocketIO\'s', function () {
 
   describe('init', function () {
     it('initializes the module with defaults', function () {
