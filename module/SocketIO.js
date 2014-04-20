@@ -7,11 +7,9 @@
 'use strict';
 
 var Logger = require('./Logger');
-var Brewer = require('./Brewer');
 var LOG = __filename.split('/').pop();
 var io = {};
 var lastStatusSent = new Date();
-
 // event notifiers
 var onManualSetPWMNotifier;
 
@@ -22,6 +20,7 @@ var onManualSetPWM;
 var STATUS_FREQ = {
   value: 0
 };
+var Brewer;
 
 
 /**
@@ -30,6 +29,7 @@ var STATUS_FREQ = {
  * @method init
  */
 exports.init = function (_io, options) {
+  Brewer = options.Brewer;
   io = _io;
   options = options || {};
   STATUS_FREQ.value = options.logStatusFrequency || 500;

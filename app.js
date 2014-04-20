@@ -111,7 +111,8 @@ io = socketIO.listen(server);
 io.set('log level', 1);
 
 SocketIO.init(io, {
-  logStatusFrequency: 500
+  logStatusFrequency: 500,
+  Brewer: Brewer
 });
 
 BrewCore.init({ mode: MODE });
