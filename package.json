@@ -63,6 +63,6 @@
     "test-frontend": "grunt test",
     "test-backend": "NODE_ENV=test mocha test/server",
     "start": "node app.js",
-    "coverage": "istanbul cover _mocha test/server --recursive -- -u exports -R spec && open coverage/lcov-report/index.html"
+    "coverage": "NODE_ENV=test istanbul cover _mocha test/server --recursive -- -u exports -R spec && open coverage/lcov-report/index.html"
   }
 }
